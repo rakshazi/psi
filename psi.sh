@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 message() {
     echo -e "\033[0;32m[psi::\e[4m$1\033[0;32m]\033[0m $2"
@@ -15,9 +15,12 @@ report() {
     message "${1}" "score: \e[1m\e[36m${perfomanceScore}\e[0m/100, \e[1m\e[36m${loadingExperience}\e[0m loading (website loading - \e[1m\e[36m${originLoadingExperience}\e[0m)"
 }
 
-website=$1
-for strategy in "mobile" "desktop"; do
-    result=$(call "${website}" "${strategy}")
-    report "${strategy}" "${result}"
+for website in ${@}; do
+    echo -e ""
+    message "start" "${website}"
+    for strategy in "mobile" "desktop"; do
+        result=$(call "${website}" "${strategy}")
+        report "${strategy}" "${result}"
+    done
+    message "end" "https://developers.google.com/speed/pagespeed/insights/?url=${website}"
 done
-message "url" "https://developers.google.com/speed/pagespeed/insights/?url=${website}"
