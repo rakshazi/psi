@@ -12,7 +12,14 @@ report() {
     loadingExperience=$(echo $2 | jq -r '.loadingExperience.overall_category')
     originLoadingExperience=$(echo $2 | jq -r '.originLoadingExperience.overall_category')
     perfomanceScore=$(echo $2 | jq -r '.lighthouseResult.categories.performance.score'*100)
-    message "${1}" "score: \e[1m\e[36m${perfomanceScore}\e[0m/100, \e[1m\e[36m${loadingExperience}\e[0m loading (website loading - \e[1m\e[36m${originLoadingExperience}\e[0m)"
+    if [[ "null" == "${loadingExperience}" || "null" == "${originLoadingExperience}" ]]; then
+        msg="score: \e[1m\e[36m${perfomanceScore}\e[0m/100"
+    elif [[ "null" == "${prefomanceScore}" || "0" == "${prefomanceScore}" ]]; then
+        msg="something went wrong, Google PageSpeed Insights didn't return any result"
+    else
+        msg="score: \e[1m\e[36m${perfomanceScore}\e[0m/100, \e[1m\e[36m${loadingExperience}\e[0m loading (website loading - \e[1m\e[36m${originLoadingExperience}\e[0m)"
+    fi
+    message "${1}" "${msg}"
 }
 
 for website in ${@}; do
