@@ -1,4 +1,4 @@
-# PageSpeed Insights dockerized
+# PageSpeed Insights dockerized [![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/rakshazi/donate)
 
 Very simple script (check `psi.sh`) which will make API calls to PageSpeed Insights and show report in terminal.
 
